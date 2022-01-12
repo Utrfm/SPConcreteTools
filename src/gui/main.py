@@ -46,7 +46,7 @@ if __name__ == "__main__":
         # view = graphicsView(scene)
         # view.setBackgroundBrush(QtGui.QBrush(QtGui.QColor(127,100,255,80)))
         # view.show()
-
+    
 
     window.pushButton.clicked.connect(testprint)
 

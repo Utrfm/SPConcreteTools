@@ -1,4 +1,3 @@
-
 # +============================================================================+
 # | Company:   SOFiSTiK AG                                                     |
 # | Version:   SOFiSTIK 2020                                                   |
@@ -8,6 +7,7 @@ import os             # for the environment variable necessary
 import platform       # checks the python platform
 from ctypes import *  # read the functions from the cdb
 from sofistik_daten import *
+from elements import *
 
 # This example has been tested with Python 3.7 (64-bit)
 # print ("The path variable=", os.environ["Path"])
@@ -75,18 +75,21 @@ if py_sof_cdb_kexist(k1, k2) == 2: # the key exists and contains data
 
 print(f'{areas=}')
 
-k1 = 32
-k2 = 1003
-func = cgar
+for a in areas:
 
-if py_sof_cdb_kexist(k1, k2) == 2: # the key exists and contains data
-    ie = c_int(0)
-    RecLen = c_int(sizeof(func))
-    while ie.value == 0:
-        ie.value = py_sof_cdb_get(Index, k1, k2, byref(func), byref(RecLen), 1)
-        # if func.m_id==T:
-        print(f'group {func.m_nog=}')
-        print(f'thickness {func.m_td[0]=} m')
+    k1 = 32
+    k2 = a
+    func = cgar
+
+    if py_sof_cdb_kexist(k1, k2) == 2: # the key exists and contains data
+        ie = c_int(0)
+        RecLen = c_int(sizeof(func))
+        while ie.value == 0:
+            ie.value = py_sof_cdb_get(Index, k1, k2, byref(func), byref(RecLen), 1)
+            # print(f'{func.m_id=}')
+            if func.m_id==0:
+                print(f'group {func.m_nog=}')
+                print(f'thickness {func.m_td[0]=} m')
         # if func.m_id==10:
         #     print(f'{func.m_box[1][1]=}')
 
