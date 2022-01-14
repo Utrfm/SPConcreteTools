@@ -1,7 +1,9 @@
 import sys
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QApplication, QFileDialog
 from PySide6.QtCore import QFile, QIODevice
+
+import modules.sofistik_cdb.cdbwork as cdb
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -46,8 +48,14 @@ if __name__ == "__main__":
         # view = graphicsView(scene)
         # view.setBackgroundBrush(QtGui.QBrush(QtGui.QColor(127,100,255,80)))
         # view.show()
-    
 
-    window.pushButton.clicked.connect(testprint)
+    def Dg():
+        file , check = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()",
+                                               "", "All Files (*);;Python Files (*.py);;Text Files (*.txt)")
+        if check:
+            print(file)
+
+    # window.pushButton.clicked.connect(testprint)
+    window.pBOpenFile.clicked.connect(Dg)
 
     app.exec()

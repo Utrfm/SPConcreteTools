@@ -16,9 +16,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QGridLayout, QHBoxLayout, QHeaderView,
-    QLabel, QMainWindow, QMenuBar, QPushButton,
+    QMainWindow, QMenuBar, QPlainTextEdit, QPushButton,
     QSizePolicy, QStatusBar, QTabWidget, QTableWidget,
-    QTableWidgetItem, QVBoxLayout, QWidget)
+    QTableWidgetItem, QTextEdit, QVBoxLayout, QWidget)
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -46,30 +46,25 @@ class Ui_MainWindow(object):
         self.mw_tab1.setObjectName(u"mw_tab1")
         self.horizontalLayout_2 = QHBoxLayout(self.mw_tab1)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_6 = QHBoxLayout()
-        self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.verticalLayout_2 = QVBoxLayout()
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.label = QLabel(self.mw_tab1)
-        self.label.setObjectName(u"label")
+        self.gridLayout_3 = QGridLayout()
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.pBOpenFile = QPushButton(self.mw_tab1)
+        self.pBOpenFile.setObjectName(u"pBOpenFile")
 
-        self.verticalLayout_2.addWidget(self.label)
+        self.gridLayout_3.addWidget(self.pBOpenFile, 2, 0, 1, 1)
 
-        self.pushButton = QPushButton(self.mw_tab1)
-        self.pushButton.setObjectName(u"pushButton")
+        self.textEdit = QTextEdit(self.mw_tab1)
+        self.textEdit.setObjectName(u"textEdit")
 
-        self.verticalLayout_2.addWidget(self.pushButton)
+        self.gridLayout_3.addWidget(self.textEdit, 0, 0, 1, 1)
+
+        self.plainTextEdit = QPlainTextEdit(self.mw_tab1)
+        self.plainTextEdit.setObjectName(u"plainTextEdit")
+
+        self.gridLayout_3.addWidget(self.plainTextEdit, 1, 0, 1, 1)
 
 
-        self.horizontalLayout_6.addLayout(self.verticalLayout_2)
-
-
-        self.horizontalLayout_2.addLayout(self.horizontalLayout_6)
-
-        self.horizontalLayout_5 = QHBoxLayout()
-        self.horizontalLayout_5.setObjectName(u"horizontalLayout_5")
-
-        self.horizontalLayout_2.addLayout(self.horizontalLayout_5)
+        self.horizontalLayout_2.addLayout(self.gridLayout_3)
 
         self.tabWidget.addTab(self.mw_tab1, "")
         self.tab_2 = QWidget()
@@ -149,8 +144,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
-        self.label.setText(QCoreApplication.translate("MainWindow", u"TextLabel", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
+        self.pBOpenFile.setText(QCoreApplication.translate("MainWindow", u"PushButton", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.mw_tab1), QCoreApplication.translate("MainWindow", u"Sofistik", None))
 #if QT_CONFIG(tooltip)
         self.tabWidget.setTabToolTip(self.tabWidget.indexOf(self.mw_tab1), QCoreApplication.translate("MainWindow", u"Work with Sofistik cdb", None))

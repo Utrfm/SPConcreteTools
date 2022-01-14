@@ -9,11 +9,7 @@ from ctypes import *  # read the functions from the cdb
 from sofistik_daten import *
 from elements import *
 
-# This example has been tested with Python 3.7 (64-bit)
-# print ("The path variable=", os.environ["Path"])
-
-# print ("Hint: 64bit DLLs are used")
-# path = os.environ["Path"]
+from pathlib import PureWindowsPath
 
 # 64bit DLLs
 os.add_dll_directory(r"C:\Program Files\SOFiSTiK\2020\SOFiSTiK 2020\interfaces\64bit")
@@ -21,7 +17,6 @@ os.add_dll_directory(r"C:\Program Files\SOFiSTiK\2020\SOFiSTiK 2020")
 
 # Get the DLL functions
 lib = 'sof_cdb_w-70.dll'
-
 
 myDLL = cdll.LoadLibrary(lib)
 py_sof_cdb_get = cdll.LoadLibrary(lib).sof_cdb_get
@@ -33,12 +28,17 @@ py_sof_cdb_get.restype = c_int
 py_sof_cdb_kenq = cdll.LoadLibrary(lib).sof_cdb_kenq_ex
 py_sof_cdb_kexist = cdll.LoadLibrary(lib).sof_cdb_kexist
 
+
 # Connect to CDB
 Index = c_int()
 cdbIndex = 99
 
 # Set the CDB Path
-fileName = r"E:\pyprj\SPConcreteTools\test_data_work\ex1\ex1.cdb"
+def SetBase(s):
+    fileName = PureWindowsPath(s)
+    return str(fileName)
+
+fileName = SetBase('E:/pyprj/SPConcreteTools/test_data_work/ex1/ex1.cdb')
 
 # important: Unicode call!
 Index.value = myDLL.sof_cdb_init(fileName.encode('utf-8'), cdbIndex)
@@ -87,9 +87,9 @@ for a in areas:
         while ie.value == 0:
             ie.value = py_sof_cdb_get(Index, k1, k2, byref(func), byref(RecLen), 1)
             # print(f'{func.m_id=}')
-            if func.m_id==0:
-                print(f'group {func.m_nog=}')
-                print(f'thickness {func.m_td[0]=} m')
+            # if func.m_id==0:
+            #     print(f'group {func.m_nog=}')
+            #     print(f'thickness {func.m_td[0]=} m')
         # if func.m_id==10:
         #     print(f'{func.m_box[1][1]=}')
 
