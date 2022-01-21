@@ -61,40 +61,61 @@ do while ie == 0, see cdbase.chm, Returnvalue.
 """
 
 #read and save list of structural areas
-areas = []
-k1 = 32
-k2 = 0
+structural_areas = []
+key1 = 32
+key2 = 0
 func = cgln_matc
 
-if py_sof_cdb_kexist(k1, k2) == 2: # the key exists and contains data
+if py_sof_cdb_kexist(key1, key2) == 2: # the key exists and contains data
     ie = c_int(0)
     RecLen = c_int(sizeof(func))
     while ie.value == 0:
-        ie.value = py_sof_cdb_get(Index, k1, k2, byref(func), byref(RecLen), 1)
-        areas.append(func.m_nr)
+        ie.value = py_sof_cdb_get(Index, key1, key2, byref(func), byref(RecLen), 1)
+        structural_areas.append(func.m_nr)
 
-print(f'{areas=}')
+print(f'{structural_areas=}')
 
-for a in areas:
+# for a in structural_areas:
 
-    k1 = 32
-    k2 = a
-    func = cgar
+#     key1 = 32
+#     key2 = a
+#     func = cgar
 
-    if py_sof_cdb_kexist(k1, k2) == 2: # the key exists and contains data
+#     if py_sof_cdb_kexist(key1, key2) == 2: # the key exists and contains data
+#         ie = c_int(0)
+#         RecLen = c_int(sizeof(func))
+#         while ie.value == 0:
+#             ie.value = py_sof_cdb_get(Index, key1, key2, byref(func), byref(RecLen), 1)
+#             # print(f'{func.m_id=}')
+#             # if func.m_id==0:
+#             #     print(f'group {func.m_nog=}')
+#             #     print(f'thickness {func.m_td[0]=} m')
+#         # if func.m_id==10:
+#         #     print(f'{func.m_box[1][1]=}')
+def SarsRead(int_id):
+    key1 = 39
+    key2 = 0
+    func = csar
+
+    print(f'{py_sof_cdb_kexist(key1, key2)=}')
+    if py_sof_cdb_kexist(key1, key2) == 2: # the key exists and contains data
+        
         ie = c_int(0)
         RecLen = c_int(sizeof(func))
-        while ie.value == 0:
-            ie.value = py_sof_cdb_get(Index, k1, k2, byref(func), byref(RecLen), 1)
-            # print(f'{func.m_id=}')
-            # if func.m_id==0:
-            #     print(f'group {func.m_nog=}')
-            #     print(f'thickness {func.m_td[0]=} m')
-        # if func.m_id==10:
-        #     print(f'{func.m_box[1][1]=}')
+        while ie.value < 2:
+        # while ie.value == 0:
+            ie.value = py_sof_cdb_get(Index, key1, key2, byref(func), byref(RecLen), 1)
+            # print(f'{ie.value=}')
+            if func.m_id == 200 and func.m_ids==1001:
+                print(f'group {func.m_nog=}')
+                print(f'material {func.m_nom=}')
+                print(f'group {func.m_nog=}')
+                print(f'thickness {func.m_td[0]=}')
+                print(f'thickness {func.m_td[2]=}')
 
 
 
+SarsRead(1004)
 # class Node():
 #     def __init__(self,nr,kfix=127,xyz=(0,0,0),pz=0):
 #         self.nr = nr
